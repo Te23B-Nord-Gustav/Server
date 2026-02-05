@@ -5,6 +5,10 @@
 
 // app.Run();
 
+
+
+
+
 WebApplication app = WebApplication.Create(args);
 
 List<Teacher> teachers = [
@@ -18,8 +22,18 @@ app.MapGet("/", Hello);
 app.MapGet("/gustav", Gustav);
 app.MapGet("/teachers", GiveTeacher);
 app.MapGet("/teacher/{n}", GiveaTeacher);
+app.MapPost("/teacher/new", AddTeacher);
+
+app.Urls.Add("http://localhost:5043");
+app.Urls.Add("http://*:5043");
 
 app.Run();
+
+IResult AddTeacher(Teacher t)
+{
+    teachers.Add(t);
+    return Results.Ok();
+}
 
 List<Teacher> GiveTeacher()
 {
